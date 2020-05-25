@@ -4,27 +4,27 @@
 #include <algorithm>
 using namespace std;
 #define INFINITE 0xFFFFFFFF   
-#define VertexData unsigned int  //¶¥µãÊı¾İ
+#define VertexData unsigned int  //é¡¶ç‚¹æ•°æ®
 #define UINT  unsigned int
-#define vexCounts 6  //¶¥µãÊıÁ¿
+#define vexCounts 6  //é¡¶ç‚¹æ•°é‡
 
 char vextex[] = { 'A', 'B', 'C', 'D', 'E', 'F' };
 struct node 
 {
     VertexData data;
     unsigned int lowestcost;
-}closedge[vexCounts]; //PrimËã·¨ÖĞµÄ¸¨ÖúĞÅÏ¢
+}closedge[vexCounts]; //Primç®—æ³•ä¸­çš„è¾…åŠ©ä¿¡æ¯
 
 typedef struct 
 {
     VertexData u;
     VertexData v;
-    unsigned int cost;  //±ßµÄ´ú¼Û
-}Arc;  //Ô­Ê¼Í¼µÄ±ßĞÅÏ¢
+    unsigned int cost;  //è¾¹çš„ä»£ä»·
+}Arc;  //åŸå§‹å›¾çš„è¾¹ä¿¡æ¯
 
-void AdjMatrix(unsigned int adjMat[][vexCounts])  //ÁÚ½Ó¾ØÕó±íÊ¾·¨
+void AdjMatrix(unsigned int adjMat[][vexCounts])  //é‚»æ¥çŸ©é˜µè¡¨ç¤ºæ³•
 {
-    for (int i = 0; i < vexCounts; i++)   //³õÊ¼»¯ÁÚ½Ó¾ØÕó
+    for (int i = 0; i < vexCounts; i++)   //åˆå§‹åŒ–é‚»æ¥çŸ©é˜µ
         for (int j = 0; j < vexCounts; j++)
         {
             adjMat[i][j] = INFINITE;
@@ -37,7 +37,7 @@ void AdjMatrix(unsigned int adjMat[][vexCounts])  //ÁÚ½Ó¾ØÕó±íÊ¾·¨
     adjMat[5][2] = 4; adjMat[5][3] = 2; adjMat[5][4] = 6;
 }
 
-int Minmum(struct node * closedge)  //·µ»Ø×îĞ¡´ú¼Û±ß
+int Minmum(struct node * closedge)  //è¿”å›æœ€å°ä»£ä»·è¾¹
 {
     unsigned int min = INFINITE;
     int index = -1;
@@ -58,9 +58,9 @@ void MiniSpanTree_Prim(unsigned int adjMat[][vexCounts], VertexData s)
     {
         closedge[i].lowestcost = INFINITE;
     }      
-    closedge[s].data = s;      //´Ó¶¥µãs¿ªÊ¼
+    closedge[s].data = s;      //ä»é¡¶ç‚¹så¼€å§‹
     closedge[s].lowestcost = 0;
-    for (int i = 0; i < vexCounts;i++)  //³õÊ¼»¯¸¨ÖúÊı×é
+    for (int i = 0; i < vexCounts;i++)  //åˆå§‹åŒ–è¾…åŠ©æ•°ç»„
     {
         if (i != s)
         {
@@ -68,12 +68,12 @@ void MiniSpanTree_Prim(unsigned int adjMat[][vexCounts], VertexData s)
             closedge[i].lowestcost = adjMat[s][i];
         }
     }
-    for (int e = 1; e <= vexCounts -1; e++)  //n-1Ìõ±ßÊ±ÍË³ö
+    for (int e = 1; e <= vexCounts -1; e++)  //n-1æ¡è¾¹æ—¶é€€å‡º
     {
-        int k = Minmum(closedge);  //Ñ¡Ôñ×îĞ¡´ú¼Û±ß
-        cout << vextex[closedge[k].data] << "--" << vextex[k] << endl;//¼ÓÈëµ½×îĞ¡Éú³ÉÊ÷
-        closedge[k].lowestcost = 0; //´ú¼ÛÖÃÎª0
-        for (int i = 0; i < vexCounts;i++)  //¸üĞÂvÖĞ¶¥µã×îĞ¡´ú¼Û±ßĞÅÏ¢
+        int k = Minmum(closedge);  //é€‰æ‹©æœ€å°ä»£ä»·è¾¹
+        cout << vextex[closedge[k].data] << "--" << vextex[k] << endl;//åŠ å…¥åˆ°æœ€å°ç”Ÿæˆæ ‘
+        closedge[k].lowestcost = 0; //ä»£ä»·ç½®ä¸º0
+        for (int i = 0; i < vexCounts;i++)  //æ›´æ–°vä¸­é¡¶ç‚¹æœ€å°ä»£ä»·è¾¹ä¿¡æ¯
         {
             if ( adjMat[k][i] < closedge[i].lowestcost)
             {
@@ -84,7 +84,7 @@ void MiniSpanTree_Prim(unsigned int adjMat[][vexCounts], VertexData s)
     }
 }
 
-void ReadArc(unsigned int  adjMat[][vexCounts],vector<Arc> &vertexArc) //±£´æÍ¼µÄ±ß´ú¼ÛĞÅÏ¢
+void ReadArc(unsigned int  adjMat[][vexCounts],vector<Arc> &vertexArc) //ä¿å­˜å›¾çš„è¾¹ä»£ä»·ä¿¡æ¯
 {
     Arc * temp = NULL;
     for (unsigned int i = 0; i < vexCounts;i++)
@@ -112,7 +112,7 @@ bool FindTree(VertexData u, VertexData v,vector<vector<VertexData> > &Tree)
 {
     unsigned int index_u = INFINITE;
     unsigned int index_v = INFINITE;
-    for (unsigned int i = 0; i < Tree.size();i++)  //¼ì²éu,v·Ö±ğÊôÓÚÄÄ¿ÅÊ÷
+    for (unsigned int i = 0; i < Tree.size();i++)  //æ£€æŸ¥u,våˆ†åˆ«å±äºå“ªé¢—æ ‘
     {
         if (find(Tree[i].begin(), Tree[i].end(), u) != Tree[i].end())
             index_u = i;
@@ -120,7 +120,7 @@ bool FindTree(VertexData u, VertexData v,vector<vector<VertexData> > &Tree)
             index_v = i;
     }
  
-    if (index_u != index_v)   //u,v²»ÔÚÒ»¿ÅÊ÷ÉÏ£¬ºÏ²¢Á½¿ÅÊ÷
+    if (index_u != index_v)   //u,vä¸åœ¨ä¸€é¢—æ ‘ä¸Šï¼Œåˆå¹¶ä¸¤é¢—æ ‘
     {
         for (unsigned int i = 0; i < Tree[index_v].size();i++)
         {
@@ -135,20 +135,20 @@ bool FindTree(VertexData u, VertexData v,vector<vector<VertexData> > &Tree)
 void MiniSpanTree_Kruskal(unsigned int adjMat[][vexCounts])
 {
     vector<Arc> vertexArc;
-    ReadArc(adjMat, vertexArc);//¶ÁÈ¡±ßĞÅÏ¢
-    sort(vertexArc.begin(), vertexArc.end(), compare);//±ß°´´ÓĞ¡µ½´óÅÅĞò
-    vector<vector<VertexData> > Tree(vexCounts); //6¿Ã¶ÀÁ¢Ê÷
+    ReadArc(adjMat, vertexArc);//è¯»å–è¾¹ä¿¡æ¯
+    sort(vertexArc.begin(), vertexArc.end(), compare);//è¾¹æŒ‰ä»å°åˆ°å¤§æ’åº
+    vector<vector<VertexData> > Tree(vexCounts); //6æ£µç‹¬ç«‹æ ‘
     for (unsigned int i = 0; i < vexCounts; i++)
     {
-        Tree[i].push_back(i);  //³õÊ¼»¯6¿Ã¶ÀÁ¢Ê÷µÄĞÅÏ¢
+        Tree[i].push_back(i);  //åˆå§‹åŒ–6æ£µç‹¬ç«‹æ ‘çš„ä¿¡æ¯
     }
-    for (unsigned int i = 0; i < vertexArc.size(); i++)//ÒÀ´Î´ÓĞ¡µ½´óÈ¡×îĞ¡´ú¼Û±ß
+    for (unsigned int i = 0; i < vertexArc.size(); i++)//ä¾æ¬¡ä»å°åˆ°å¤§å–æœ€å°ä»£ä»·è¾¹
     {
         VertexData u = vertexArc[i].u;  
         VertexData v = vertexArc[i].v;
-        if (FindTree(u, v, Tree))//¼ì²é´Ë±ßµÄÁ½¸ö¶¥µãÊÇ·ñÔÚÒ»¿ÅÊ÷ÄÚ
+        if (FindTree(u, v, Tree))//æ£€æŸ¥æ­¤è¾¹çš„ä¸¤ä¸ªé¡¶ç‚¹æ˜¯å¦åœ¨ä¸€é¢—æ ‘å†…
         {
-            cout << vextex[u] << "---" << vextex[v] << endl;//°Ñ´Ë±ß¼ÓÈëµ½×îĞ¡Éú³ÉÊ÷ÖĞ
+            cout << vextex[u] << "---" << vextex[v] << endl;//æŠŠæ­¤è¾¹åŠ å…¥åˆ°æœ€å°ç”Ÿæˆæ ‘ä¸­
         }   
     }
 }
@@ -156,10 +156,10 @@ void MiniSpanTree_Kruskal(unsigned int adjMat[][vexCounts])
 int main()
 {
     unsigned int  adjMat[vexCounts][vexCounts] = { 0 };
-    AdjMatrix(adjMat);   //ÁÚ½Ó¾ØÕó
+    AdjMatrix(adjMat);   //é‚»æ¥çŸ©é˜µ
     cout << "Prim :" << endl;
-    MiniSpanTree_Prim(adjMat,0); //PrimËã·¨£¬´Ó¶¥µã0¿ªÊ¼.
+    MiniSpanTree_Prim(adjMat,0); //Primç®—æ³•ï¼Œä»é¡¶ç‚¹0å¼€å§‹.
     cout << "-------------" << endl << "Kruskal:" << endl;
-    MiniSpanTree_Kruskal(adjMat);//KruskalËã·¨
+    MiniSpanTree_Kruskal(adjMat);//Kruskalç®—æ³•
     return 0;
 }
