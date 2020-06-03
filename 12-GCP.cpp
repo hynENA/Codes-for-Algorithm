@@ -46,7 +46,7 @@ int main()
         graph[b][a]=1;
     }
     backtrack(1);
-    printf("Total=%d",cou);
+    printf("Total=%d\n",cou);
     if(cou==0){
 	printf("NO\n");
     }
