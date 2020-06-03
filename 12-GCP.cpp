@@ -47,5 +47,8 @@ int main()
     }
     backtrack(1);
     printf("Total=%d",cou);
+    if(cou==0){
+	printf("NO\n");
+    }
     return 0;
 }
